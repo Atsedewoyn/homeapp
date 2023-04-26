@@ -1,11 +1,10 @@
-// ignore_for_file: unused_field
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:flutter/material.dart';
-import 'package:home_tutor/components/button.dart';
 import 'package:table_calendar/table_calendar.dart';
-import '../components/custom_appbar.dart';
+import '/components/custom_appbar.dart';
+
+import '../components/button.dart';
 import '../utils/config.dart';
 
 class BookingPage extends StatefulWidget {
@@ -17,11 +16,11 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   CalendarFormat _format = CalendarFormat.month;
-  DateTime _focusDay = DateTime.now();
-  DateTime _currentDay = DateTime.now();
+  final DateTime _focusDay = DateTime.now();
+  final DateTime _currentDay = DateTime.now();
   int? _currentIndex;
-  bool _isWeekend = false;
-  bool _dateSelected = false;
+  final bool _isWeekend = false;
+  final bool _dateSelected = false;
   bool _timeSelected = false;
 
   @override
@@ -35,25 +34,23 @@ class _BookingPageState extends State<BookingPage> {
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Column(children: <Widget>[
-              _tableCalendar(),
-              const Padding(
+              child: Column(children: [
+            _tableCalendar(),
+            const Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: 10,
                   vertical: 25,
                 ),
                 child: Center(
                   child: Text(
-                    "Select Consultation Time",
+                    "Selact Consulation Time",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 20,
                     ),
                   ),
-                ),
-              )
-            ]),
-          ),
+                ))
+          ])),
           _isWeekend
               ? SliverToBoxAdapter(
                   child: Container(
@@ -63,7 +60,7 @@ class _BookingPageState extends State<BookingPage> {
                     ),
                     alignment: Alignment.center,
                     child: const Text(
-                        "weeked isnot available,please select another day"),
+                        "weeked is not available,please select another day"),
                   ),
                 )
               : SliverGrid(
@@ -115,14 +112,14 @@ class _BookingPageState extends State<BookingPage> {
               ),
               child: Button(
                 width: double.infinity,
-                title: 'Make Appointment',
+                title: "Make Appointment",
                 onPressed: () {
-                  Navigator.of(context).pushNamed('success_booked');
+                  Navigator.of(context).pushNamed("success_booking");
                 },
                 disable: _timeSelected && _dateSelected ? false : true,
               ),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -132,35 +129,21 @@ class _BookingPageState extends State<BookingPage> {
     return TableCalendar(
       focusedDay: _focusDay,
       firstDay: DateTime.now(),
-      lastDay: DateTime(2023, 04, 04),
+      lastDay: DateTime(2023, 12, 31),
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: 48,
       calendarStyle: const CalendarStyle(
-        todayDecoration:
-            BoxDecoration(color: Config.primaryColor, shape: BoxShape.circle),
-      ),
+          todayDecoration: BoxDecoration(
+              color: Config.primaryColor, shape: BoxShape.circle)),
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       onFormatChanged: (format) {
         setState(() {
           _format = format;
         });
       },
-      onDaySelected: ((selectDay, focuseDay) {
-        setState(() {
-          _currentDay = selectDay;
-          _focusDay = focuseDay;
-          _dateSelected = true;
-
-          if (selectDay.weekday == 6 || selectDay.weekday == 7) {
-            _isWeekend = true;
-            _timeSelected = false;
-            _currentIndex = null;
-          } else {
-            _isWeekend = false;
-          }
-        });
-      }),
+// ignore: non_constant_identifier_names
+      onDaySelected: ((SelectDay, focuseDay) {}),
     );
   }
 }

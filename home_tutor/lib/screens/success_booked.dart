@@ -1,27 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:home_tutor/components/button.dart';
+import '../components/button.dart';
 import 'package:lottie/lottie.dart';
 
-class AppointmentBooked extends StatelessWidget {
+class AppointmentBooked extends StatefulWidget {
   const AppointmentBooked({super.key});
 
+  @override
+  State<AppointmentBooked> createState() => _AppointmentBookedState();
+}
+
+class _AppointmentBookedState extends State<AppointmentBooked> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
           child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Expanded(
-            flex: 3,
-            child: Lottie.network(
-                'https://assets2.lottiefiles.com/packages/lf20_uu0x8lqv.json'),
-          ),
+        children: [
+          Expanded(child: Lottie.asset('images/abrsh.jpg')),
           Container(
-            width: 20,
+            width: double.infinity,
             alignment: Alignment.center,
             child: const Text(
-              'Successfully Booked',
+              "successfully Booked",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -35,11 +36,10 @@ class AppointmentBooked extends StatelessWidget {
               vertical: 15,
             ),
             child: Button(
-              width: double.infinity,
-              title: 'Back to Home Page',
-              onPressed: () => Navigator.of(context).pushNamed('main'),
-              disable: false,
-            ),
+                width: double.infinity,
+                title: "back to home page",
+                onPressed: () => Navigator.of(context).pushNamed("main"),
+                disable: false),
           )
         ],
       )),
